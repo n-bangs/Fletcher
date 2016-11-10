@@ -1,0 +1,75 @@
+body {
+  width: 100%;
+  background-color: #f4fbfb;
+}
+
+#top-border {
+  height: 10px;
+  width: 100%;
+  background-color: #9db8b8; 
+  color: white;
+  font-size: 2em;
+  margin: 0;
+  padding-top: 30px;
+  padding-bottom: 40px;
+  padding-left: 100px;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.form-container {
+  margin: auto;
+  margin-top: 10%;
+  padding: 10px;
+  width: 40%;
+  background-color: #9db8b8; 
+  border-radius: 5%;
+}
+
+#beer-title {
+  color: #f4fbfb;
+  font-size: 1.3em;
+  margin-left: 27%;
+  margin-bottom: 5px;
+  margin-top: 15px;
+}
+
+.change-num {
+  margin-top: 10px;
+  display: inline-block;
+}
+
+input[type='text'] {
+  position: relative;
+  margin-left: 25%;
+  margin-top: 10px;
+  color: #2c4a52;
+  height: 40px;
+  width: 250px;
+  font-size: 1.1em;
+  padding-left: 10px;
+}
+
+input[type='submit'] {
+  position: relative;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-color: #dceaea;
+  background-color: #dceaea;
+  color: #2c4a52;
+  font-size: 1.3em;
+  height: 3em;
+  width: 8em;
+  margin-left: 33%;
+}
+
+#add-beer {
+  margin-top: 20px;
+  margin-left: 35%;
+}
+
+#subtract-beer {
+  margin-top: 20px;
+  margin-left: 10%;
+}

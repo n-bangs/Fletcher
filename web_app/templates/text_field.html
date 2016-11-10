@@ -1,0 +1,8 @@
+{% for i in range(num_terms) %}
+  <input type="text" name="beer" value="{{ beer_array[n] }}"<br>
+{% endfor %}
+<br><br>
+  <input type="image" src="static/img/plus.png" name="submit" title="Add Beer" value="add-beer" id="add-beer">
+{% if num_terms > 1 %}
+  <input type="image" src="static/img/minus.png" name="submit" title="Subtract Beer" value="subtract-beer" id="subtract-beer">
+{% endif %}

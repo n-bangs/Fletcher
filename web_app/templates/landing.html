@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<div id='top-border'>PubCrawl</div>
+<div class='form-container'>
+  <form action="{{ url_for('beer_handler', beer_array=beer_array, num_beers=num_beers) }}" method="POST" name="beer-list">
+    <div id='beer-list-input'>
+      <div id='beer-title'>Enter some beers that you like</div><br>
+      {% for i in range(num_beers) %}
+         <input type="text" class="beer-name" name="beer_{{ i }}" value="{{ beer_array[i] }}" placeholder="Beer Name"><br>
+      {% endfor %}
+    </div>
+    <div id='add-beer' class='change-num' onclick="{% set num_beers = num_beers + 1 %}">
+      <svg height="50" width="50">
+        <g id="plus" transform="translate(25,25)">
+          <circle r='20' fill='none' stroke='#f4fbfb' stroke-width='2'></circle> 
+          <line x1='0' y1='-12' x2='0' y2='12' stroke='#f4fbfb' stroke-width='2'></line>
+          <line x1='-14' y1='0' x2='14' y2='0' stroke='#f4fbfb' stroke-width='2'></line>
+        </g>
+      </svg>
+    </div>
+    <div id='subtract-beer' class='change-num'> 
+      <svg height="50" width="50">
+        <g id="plus" transform="translate(25,25)">
+          <circle r='20' fill='none' stroke='#f4fbfb' stroke-width='2'></circle> 
+          <line x1='-10' y1='0' x2='10' y2='0' stroke='#f4fbfb' stroke-width='2'></line>
+        </g>
+      </svg>
+    </div>
+    <br>
+      <br><input class='fsSubmitButton' type="submit" value="Continue" name="submit">
+  </form>
+</div>
+
+  <script> 
+
+      var i = +{{ num_beers }}
+
+      d3.select('#add-beer')
+              .on('click', 
+                function()
+                 {
+                    d3.select('#beer-list-input')
+                      .append('input')
+                      .attr('class', 'beer-name')
+                      .attr('name','beer_'+i)
+                      .attr('type','text')
+                      .attr('placeholder','Beer Name');
+                    
+                    i += 1;
+
+                    d3.select('#beer-list-input')
+                      .append('br');
+                })
+
+      d3.select('#subtract-beer')
+              .on('click', 
+                function()
+                 {
+
+                    d3.selectAll('.beer-name')._groups[0][i-2].remove()
+                    d3.selectAll('#beer-list-input')
+                      .selectAll('br')._groups[0][i-2].remove()
+                    i -= 1;
+
+                })
+  </script>
+{% endblock %}
