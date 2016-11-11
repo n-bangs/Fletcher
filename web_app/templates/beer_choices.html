@@ -10,22 +10,24 @@
          <input type="text" class="beer-name" name="beer_{{ i }}" value="" placeholder="Beer Name"><br>
       {% endfor %}
     </div>
-    <div id='subtract-beer' class='change-num'> 
-        <svg height="50" width="50">
-          <g id="plus" transform="translate(25,25)">
-            <circle r='20' fill='none' stroke='white' stroke-width='2'></circle> 
-            <line x1='-10' y1='0' x2='10' y2='0' stroke='white' stroke-width='2'></line>
-          </g>
-        </svg>
-    </div>
-    <div id='add-beer' class='change-num' onclick="{% set num_beers = num_beers + 1 %}">
-        <svg height="50" width="50">
-          <g id="plus" transform="translate(25,25)">
-            <circle r='20' fill='none' stroke='white' stroke-width='2'></circle> 
-            <line x1='0' y1='-12' x2='0' y2='12' stroke='white' stroke-width='2'></line>
-            <line x1='-14' y1='0' x2='14' y2='0' stroke='white' stroke-width='2'></line>
-          </g>
-        </svg>
+    <div class="add-sub">
+      <div id='subtract-beer' class='change-num'> 
+          <svg height="50" width="50">
+            <g id="plus" transform="translate(25,25)">
+              <circle r='20' fill='none' stroke='white' stroke-width='2'></circle> 
+              <line x1='-10' y1='0' x2='10' y2='0' stroke='white' stroke-width='2'></line>
+            </g>
+          </svg>
+      </div>
+      <div id='add-beer' class='change-num' onclick="{% set num_beers = num_beers + 1 %}">
+          <svg height="50" width="50">
+            <g id="plus" transform="translate(25,25)">
+              <circle r='20' fill='none' stroke='white' stroke-width='2'></circle> 
+              <line x1='0' y1='-12' x2='0' y2='12' stroke='white' stroke-width='2'></line>
+              <line x1='-14' y1='0' x2='14' y2='0' stroke='white' stroke-width='2'></line>
+            </g>
+          </svg>
+      </div>
     </div>
     <br>
       <br><input class='fsSubmitButton' type="submit" value="Find Beer!" name="submit">
