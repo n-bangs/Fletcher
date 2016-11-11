@@ -3,6 +3,43 @@ body {
   background-color: #f4fbfb;
 }
 
+#username,
+#password,
+#login {
+  position: absolute;
+  margin-left: 30%;
+}
+
+#username {
+  margin-top: 15%;
+}
+
+#password {
+  margin-top: 20%;
+}
+
+#login {
+  margin-top: 25%;
+}
+
+a {
+  font-size: 2em;
+  position: absolute;
+  text-decoration: none;
+  color: #2c4a52;
+  margin-top: 100px;
+  margin-left: 60%;
+}
+
+a:first-child {
+  margin-left: 30%;
+}
+
+
+a:clicked {
+  color: #2c4a52;
+}
+
 #top-border {
   height: 10px;
   width: 100%;
@@ -123,8 +160,7 @@ input[type='radio']{
 
 label {
   position: absolute; 
-  display:block;
-  padding-top: 10px;
+  display: inline-block;
   height: 40px;
   width: 75%; 
   background-color: #dceaea; 

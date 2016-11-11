@@ -53,11 +53,22 @@ def beer_handler():
 
     return render_template("beer_choices.html", num_beers=num_beers, menu_array=menu_array)
 
+
 @app.route('/clarified', methods=['GET','POST'])
 def clarified():
     
     print(request.form)
     return render_template("beer_choices.html", num_beers=num_beers, menu_array=menu_array)
+
+
+@app.route('/login', methods=['GET','POST'])
+def login():
+    return render_template("login.html")
+
+
+@app.route('/verify_login', methods=['POST','GET'])
+def verify_login():
+    return render_template("landing.html", num_beers=num_beers, beer_array=beer_array)
 
 
 @app.route('/rec', methods=['GET','POST'])
