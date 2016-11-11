@@ -101,9 +101,10 @@ input[type='submit'] {
   color: #f4fbfb;
 }
 
-form {
+form[name='clarify-beer']{
+  position: relative;
   width: 40%;
-  margin: 0 auto;
+  margin-left: 23%;
 }
 
 input[type='radio']:checked + label {
@@ -114,10 +115,18 @@ input[type='radio']:focus {
   outline: 0;
 }
 
+input[type='radio']{
+  margin-left: -19px;
+  visibility: hidden;
+}
+
+
 label {
   position: absolute; 
-  height: 20px;
-  width: 100%; 
+  display:block;
+  padding-top: 10px;
+  height: 40px;
+  width: 75%; 
   background-color: #dceaea; 
 }
 
