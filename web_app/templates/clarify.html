@@ -14,12 +14,12 @@
     <div class='beer-title'>
       <h2>{{ requested_beers[i] }}</h2>
     </div>
-  {% for j in range(clarity_array[i]|length) %}
-    <!--<div class='beer-button'> -->
+      {% for j in range(clarity_array[i]|length) %}
+      <!--<div class='beer-button'> -->
       <input type="radio" name="{{ requested_beers[i] }}" value="{{ clarity_array[i][j] }}" id="{{ clarity_array[i][j] }}"/>
-    <label for="{{ clarity_array[i][j] }}">{{ clarity_array[i][j] }}</label><br>
-    <!-- </div> -->
-  {% endfor %}
+      <label for="{{ clarity_array[i][j] }}">{{ clarity_array[i][j] }}</label><br><br>
+      <!-- </div> -->
+      {% endfor %}
   </div>
 {% endfor %}
  <br><input id='clar-button' type='submit' value='Continue' name='submit' class='fsSubmitButton'>
