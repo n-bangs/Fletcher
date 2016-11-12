@@ -31,8 +31,7 @@ def load_file(fname):
 def initialize(seed=False, fname=None):
     db.connect()
     if seed:
-        #fname = "beer_list.csv"
-        fname = "test_beer.csv"
+        fname = "beer_list.csv"
         load_file(fname)
 
 if __name__ == '__main__':

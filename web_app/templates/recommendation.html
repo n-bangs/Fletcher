@@ -1,7 +1,18 @@
 {% extends "layout.html" %}
 {% block title %}Recommendation{% endblock %}
 {% block content %}
+  
+<div id='top-border'>PubCrawl</div>
+<div id='rec-page'>
+  Here are the beers of the menu in order for most to least recommended for you.<br><br><br>
 
-Hello :)
+  <div id='recs'>
+  {% for i in range(rec_beers|length) %}
+    {{ rec_beers[i] }}<br><br>
+  {% endfor %}
+  </div>
+
+</div>
+  
 
 {% endblock %}

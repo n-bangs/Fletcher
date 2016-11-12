@@ -1,10 +1,22 @@
 from flask import Flask, render_template, url_for, request
+import numpy as np
+from pymongo import MongoClient
+import operator
+from bson.objectid import ObjectId
+import json
 import re
 
 from beer_model import Beer
-from similarity_matrix import SimilarityVector
 
 app = Flask(__name__)
+
+client = MongoClient()
+db = client.sim_vecs
+col = db.vectors
+
+
+f = open('url_dict.json')
+url_dict = json.loads(f.read())
 
 beer_array = []
 menu_array = []
@@ -81,46 +93,77 @@ def rec():
             menu_array.append(request.form[k])
     
     rec_beers = get_similar(beer_array, menu_array)
-    print(rec_beers)
+    rec_beers = [r[0] for r in rec_beers]
 
     return render_template("recommendation.html", rec_beers=rec_beers) 
 
 
 def get_similar(beers, menu):
 
-
-    """    beers_summed = dists[2][choices].apply(lambda row: np.sum(row), axis=1)
-    beers_summed = beers_summed.sort_values(ascending=False)
-    ranked_beers = beers_summed.index[beers_summed.index.isin(choices)==False]
-    ranked_beers = ranked_beers.tolist()
-    ranked_beers[2][1]
-    """
-    
+    beer_list = []
+    menu_list = []
     beer_vecs = []
-    choice_indices = []
+    sub_list = []
+    sub_beer_vecs = []
+
+    for beer in menu:
+        print(beer)
+        if beer != '':
+            for b in (Beer.select().where((Beer.beer_name.regexp(beer)) |
+                     (Beer.brewery_name.regexp(beer)))):
+                print(b.beer_url)
+                try:
+                    for v in col.find({'_id':ObjectId(url_dict[b.beer_url][1])}):
+                        vec = v['sim_vec'].split(',')
+                        sub_list.append([b.beer_name,b.beer_url])
+                        vector = [float(v.strip('[').strip(']')) for v in vec]
+                        sub_beer_vecs.append(vector)
+                except:
+                    pass
+            menu_list.append(sub_list)
+            beer_vecs.append(sub_beer_vecs)
+
 
     for beer in beers:
         if beer != '':
+            #for b in (Beer.select().where((Beer.beer_name.regexp(beer)) |
+            #         (Beer.brewery_name.regexp(beer)))):
             for b in (Beer.select().where((Beer.beer_name.regexp(beer)) |
                      (Beer.brewery_name.regexp(beer)))):
-                print(b.beer_name)
-                for s in (SimilarityVector.select().where(
-                                        SimilarityVector.beer_url == b.beer_url)):
-                    beer_vecs.append(s.sim_vec)
-
-    for beer in menu:
-        if beer != '':
-            for b in (Beer.select().where((Beer.beer_name.regexp(beer)) |
-                     (Beer.brewery_name.regexp(beer)))):
-
-                print(b.beer_name)
-                for s in (SimilarityVector.select().where(
-                                        SimilarityVector.beer_url == b.beer_url)):
-                    choice_indices.append(s.id)
+                beer_list.append(url_dict[b.beer_url][0])
+            #    choice_indices = []
+            #    try:
+            #        choice_indices.append(url_dict[b.beer_url][0])
+            #    except:
+            #        pass
+        
+            #menu_list.append(choice_indices)
             
-
-    print(beer_vecs,choice_indices)
+    m = {} 
+    #print(m)
+    print(len(beer_vecs))
+    print(menu_list)
     
-    return beer_vecs
+    for j in range(len(menu_list)):
+        for i in range(len(beer_vecs[j])):
+            l = []
+            for b in beer_list:
+                l.append(beer_vecs[j][i][b])
+            m[menu_list[j][i][0]] = np.sum(l)
+        
+    sorted_m = sorted(m.items(), key=operator.itemgetter(1), reverse=True)
+
+    print(sorted_m)
+    return sorted_m
+    
+#    beers_summed = df[beer_list].apply(lambda row: np.sum(row), axis=1)
+#    print(beers_summed)
+#    beers_summed = beers_summed.sort_values(ascending=False)
+#    ranked_beers = beers_summed.index[beers_summed.index.isin(beer_list)==False]
+#    ranked_beers = beers_summed.index[beers_summed.index.isin(menu_list)==True]
+#    ranked_beers = ranked_beers.tolist()
+#    ranked_beers[:5]
+    
+
 
 app.run(debug=True)
